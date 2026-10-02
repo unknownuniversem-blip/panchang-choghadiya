@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Shubh Muhurat, Choghadiya & Kundali Milan (शुभ मुहूर्त व पंचांग)</title>
-  <meta name="description" content="Privacy-first Hindu Panchang, Day & Night Choghadiya, Rahu Kaal, Abhijit Muhurat, and 36-Guna Kundali Milan calculator. 100% private in-browser tool.">
+  <title>Shubh Muhurat, Choghadiya, Tithi & Kundali Milan (शुभ मुहूर्त व पंचांग)</title>
+  <meta name="description" content="Privacy-first Hindu Panchang, Day & Night Choghadiya with Live Tracker, Rahu Kaal, Tithi, Disha Shool, and 36-Guna Kundali Milan with Dosha alerts. 100% private.">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a' stroke='%23f59e0b' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23f59e0b'/%3E%3Cpath d='M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 
@@ -152,7 +152,7 @@
       color: var(--muted);
       margin-bottom: 6px;
     }
-    input[type="date"], input[type="time"], select {
+    input[type="date"], select {
       width: 100%;
       padding: 10px 14px;
       background: var(--card-inner);
@@ -175,7 +175,7 @@
     }
     .muhurat-badge-box {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 10px;
       margin-bottom: 1.25rem;
     }
@@ -198,6 +198,36 @@
       font-size: 0.95rem;
       color: #fff;
     }
+
+    /* Live Choghadiya Banner */
+    .live-chogh-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.1));
+      border: 1.5px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .live-pulse {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse 1.6s infinite;
+      margin-right: 6px;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
     .choghadiya-table {
       width: 100%;
       border-collapse: collapse;
@@ -215,6 +245,10 @@
       font-weight: 700;
       font-size: 0.75rem;
       text-transform: uppercase;
+    }
+    .choghadiya-table tr.active-chogh-row {
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 3px solid var(--primary);
     }
     .chogh-tag {
       display: inline-block;
@@ -238,6 +272,8 @@
       color: #f87171;
       border: 1px solid rgba(239, 68, 68, 0.4);
     }
+
+    /* Kundali Milan Section */
     .score-hero {
       background: linear-gradient(145deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.05));
       border: 1px solid rgba(245, 158, 11, 0.4);
@@ -285,6 +321,27 @@
       font-size: 0.92rem;
       color: #fff;
     }
+
+    /* Dosha Warning Alert */
+    .dosha-box {
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: none;
+    }
+    .dosha-danger {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1.5px solid var(--danger);
+      color: #fca5a5;
+    }
+    .dosha-safe {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1.5px solid var(--accent);
+      color: #6ee7b7;
+    }
+
     .btn-action {
       display: block;
       width: 100%;
@@ -384,12 +441,12 @@
           <span class="brand-badge" id="lblZeroAdBadge">100% Private</span>
         </div>
         <button type="button" class="lang-toggle-btn" onclick="toggleLanguage()">
-          🌐 <span id="btnLangText">हिंदी में बदलें (Hindi)</span>
+          🌐 <span id="btnLangText">हिंदी / मराठीत पहा</span>
         </button>
       </div>
 
       <h1 id="txtTitle">Daily Choghadiya, Shubh Muhurat & Kundali Milan</h1>
-      <p id="txtSubtitle">Accurate Hindu Panchang, Rahu Kaal, Abhijit Muhurat, Day & Night Choghadiya and 36 Guna Ashtakoot matching calculated directly in your browser.</p>
+      <p id="txtSubtitle">Accurate Hindu Panchang, Rahu Kaal, Tithi, Disha Shool, Day & Night Choghadiya and 36 Guna Ashtakoot matching calculated directly in your browser.</p>
     </header>
 
     <div class="tabs-nav">
@@ -413,13 +470,27 @@
             <select id="selCity" onchange="calculatePanchang()">
               <option value="up_bihar" selected>Gorakhpur / Varanasi / Patna (East UP & Bihar)</option>
               <option value="delhi">Delhi NCR / Lucknow (West UP & Central)</option>
-              <option value="mumbai">Mumbai / Pune (West Coast)</option>
+              <option value="mumbai">Mumbai / Pune / Maharashtra (West Coast)</option>
               <option value="kolkata">Kolkata / Eastern Zone</option>
             </select>
           </div>
         </div>
 
+        <!-- LIVE ACTIVE CHOGHADIYA BANNER -->
+        <div class="live-chogh-banner" id="liveChoghBanner">
+          <div>
+            <span class="live-pulse"></span>
+            <strong id="lblActiveTitle" style="color:#fff;">Right Now (सध्याचा चौघड़िया):</strong>
+            <span id="activeChoghName" style="font-weight:800; font-size:1.1rem; color:var(--primary); margin-left:6px;">Amrit (अमृत)</span>
+          </div>
+          <div id="activeChoghDesc" style="font-size:0.85rem; color:#f8fafc;">Best period for auspicious work (अति उत्तम मुहूर्त)</div>
+        </div>
+
         <div class="muhurat-badge-box">
+          <div class="m-badge">
+            <span id="lblTithi">Dainik Tithi (तिथि)</span>
+            <strong style="color:var(--primary);" id="resTithi">Shukla Dashami</strong>
+          </div>
           <div class="m-badge">
             <span id="lblAbhijit">Abhijit Muhurat</span>
             <strong style="color:#34d399;" id="resAbhijit">11:38 AM - 12:26 PM</strong>
@@ -429,8 +500,8 @@
             <strong style="color:#f87171;" id="resRahuKaal">10:30 AM - 12:00 PM</strong>
           </div>
           <div class="m-badge">
-            <span id="lblYamaganda">Yamaganda</span>
-            <strong style="color:#fbbf24;" id="resYamaganda">01:30 PM - 03:00 PM</strong>
+            <span id="lblDisha">Disha Shool (दिशा शूल)</span>
+            <strong style="color:#fbbf24;" id="resDisha">West (पश्चिम दिशा)</strong>
           </div>
           <div class="m-badge">
             <span id="lblSunrise">Sunrise / Sunset</span>
@@ -474,7 +545,7 @@
     <div id="viewMilan" style="display:none;">
       <div class="card">
         <div class="card-title" id="txtMilanHead">Ashtakoot 36-Guna Kundali Matching</div>
-        <div class="card-subtitle" id="txtMilanSub">Select the Moon Signs (Rashi) and Birth Stars (Nakshatra) for the Groom and Bride</div>
+        <div class="card-subtitle" id="txtMilanSub">Select the Moon Signs (Rashi) and Birth Stars (Nakshatra) for Groom and Bride</div>
 
         <div class="input-row">
           <div>
@@ -496,6 +567,9 @@
           <div class="score-val" id="resGunaScore">28 / 36</div>
           <div class="score-badge score-good" id="resGunaVerdict">Excellent Match (शुभ विवाह संबंध)</div>
         </div>
+
+        <!-- DOSHA ALERT CARD -->
+        <div id="doshaAlertBox" class="dosha-box"></div>
 
         <div class="guna-grid">
           <div class="guna-card"><span>Varna (1)</span><strong id="gVarna">1 / 1</strong></div>
@@ -573,6 +647,22 @@
       'Purva Bhadrapada', 'Uttara Bhadrapada', 'Revati'
     ];
 
+    const tithiNames = [
+      'Pratipada', 'Dwitiya', 'Tritiya', 'Chaturthi', 'Panchami', 'Shashthi',
+      'Saptami', 'Ashtami', 'Navami', 'Dashami', 'Ekadashi', 'Dwadashi',
+      'Trayodashi', 'Chaturdashi', 'Purnima / Amavasya'
+    ];
+
+    const dishaShoolList = [
+      { day: 0, dirEn: 'West (पश्चिम)', remedyEn: 'Eat betel leaf (पान खाकर निकलें)' },
+      { day: 1, dirEn: 'East (पूर्व)', remedyEn: 'Look in mirror (दर्पण देखकर निकलें)' },
+      { day: 2, dirEn: 'North (उत्तर)', remedyEn: 'Eat jaggery (गुड़ खाकर निकलें)' },
+      { day: 3, dirEn: 'North (उत्तर)', remedyEn: 'Eat sesame/coriander (धनिया खाकर निकलें)' },
+      { day: 4, dirEn: 'South (दक्षिण)', remedyEn: 'Eat curd (दही खाकर निकलें)' },
+      { day: 5, dirEn: 'West (पश्चिम)', remedyEn: 'Eat barley/mustard (जौ खाकर निकलें)' },
+      { day: 6, dirEn: 'East (पूर्व)', remedyEn: 'Eat ginger/oil (अदरक खाकर निकलें)' }
+    ];
+
     const choghadiyaOrderDay = [
       ['Udveg', 'Chal', 'Labh', 'Amrit', 'Kaal', 'Shubh', 'Rog', 'Udveg'], // Sun
       ['Amrit', 'Kaal', 'Shubh', 'Rog', 'Udveg', 'Chal', 'Labh', 'Amrit'], // Mon
@@ -594,30 +684,25 @@
     ];
 
     const choghadiyaMeta = {
-      Amrit: { tag: 'chogh-amrit', en: 'Best (अमृत)', hi: 'अति शुभ (Best)', good: true },
-      Shubh: { tag: 'chogh-shubh', en: 'Auspicious (शुभ)', hi: 'शुभ (Auspicious)', good: true },
-      Labh:  { tag: 'chogh-labh',  en: 'Profitable (लाभ)', hi: 'लाभकारी (Profitable)', good: true },
-      Chal:  { tag: 'chogh-chal',  en: 'Neutral (चल)', hi: 'सामान्य (Neutral)', good: true },
-      Rog:   { tag: 'chogh-rog',   en: 'Inauspicious (रोग)', hi: 'अशुभ (Avoid)', good: false },
-      Kaal:  { tag: 'chogh-kal',   en: 'Harmful (काल)', hi: 'हानिकारक (Kaal)', good: false },
-      Udveg: { tag: 'chogh-udveg', en: 'Anxiety (उद्वेग)', hi: 'चिंताजनक (Udveg)', good: false }
+      Amrit: { tag: 'chogh-amrit', en: 'Best (अमृत)', hi: 'अति शुभ (Best)', desc: 'Supreme time for all auspicious ventures.' },
+      Shubh: { tag: 'chogh-shubh', en: 'Auspicious (शुभ)', hi: 'शुभ (Auspicious)', desc: 'Excellent for religious work, ceremonies & trade.' },
+      Labh:  { tag: 'chogh-labh',  en: 'Profitable (लाभ)', hi: 'लाभकारी (Profitable)', desc: 'Great for starting business & investments.' },
+      Chal:  { tag: 'chogh-chal',  en: 'Neutral (चल)', hi: 'सामान्य (Neutral)', desc: 'Suitable for travel & standard routine work.' },
+      Rog:   { tag: 'chogh-rog',   en: 'Inauspicious (रोग)', hi: 'अशुभ (Avoid)', desc: 'Avoid new works, medical procedures & deals.' },
+      Kaal:  { tag: 'chogh-kal',   en: 'Harmful (काल)', hi: 'हानिकारक (Kaal)', desc: 'Rahu-dominated. Strongly avoid starting journeys.' },
+      Udveg: { tag: 'chogh-udveg', en: 'Anxiety (उद्वेग)', hi: 'चिंताजनक (Udveg)', desc: 'Sun-dominated. Causes stress in business activities.' }
     };
 
     const citySunTimes = {
-      up_bihar: { srH: 5, srM: 46, ssH: 17, ssM: 48 }, // Gorakhpur / Varanasi baseline
+      up_bihar: { srH: 5, srM: 46, ssH: 17, ssM: 48 },
       delhi:    { srH: 6, srM: 14, ssH: 18, ssM: 6 },
       mumbai:   { srH: 6, srM: 28, ssH: 18, ssM: 24 },
       kolkata:  { srH: 5, srM: 28, ssH: 17, ssM: 25 }
     };
 
     const rahuKaalParts = [
-      [8, 4.5, 6],   // Sun: 8th part
-      [2, 7.5, 9],   // Mon: 2nd part
-      [7, 3, 4.5],   // Tue: 7th part
-      [5, 12, 1.5],  // Wed: 5th part
-      [6, 1.5, 3],   // Thu: 6th part
-      [4, 10.5, 12], // Fri: 4th part
-      [3, 9, 10.5]   // Sat: 3rd part
+      [8, 4.5, 6], [2, 7.5, 9], [7, 3, 4.5], [5, 12, 1.5],
+      [6, 1.5, 3], [4, 10.5, 12], [3, 9, 10.5]
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -645,11 +730,8 @@
         gN.innerHTML += `<option value="${idx}">${idx + 1}. ${n}</option>`;
       });
 
-      // Default sample pairing
-      bR.value = '1';
-      gR.value = '5';
-      bN.value = '0';
-      gN.value = '9';
+      bR.value = '1'; gR.value = '5';
+      bN.value = '0'; gN.value = '9';
     }
 
     function switchTab(tab) {
@@ -680,7 +762,7 @@
       const dateVal = document.getElementById('inputDate').value;
       if (!dateVal) return;
       const targetDate = new Date(dateVal + 'T12:00:00');
-      const dayOfWeek = targetDate.getDay(); // 0 = Sun, 1 = Mon ...
+      const dayOfWeek = targetDate.getDay();
       const cityKey = document.getElementById('selCity').value;
       const sun = citySunTimes[cityKey];
 
@@ -689,26 +771,40 @@
 
       document.getElementById('resSunTimes').innerText = `${formatTime(sunriseMin)} / ${formatTime(sunsetMin)}`;
 
-      // Abhijit Muhurat is 8th of 15 daylight muhurats (centered at noon)
+      // 1. Tithi Estimation (Moon Phase based on Julian day count)
+      const dayNumber = Math.floor(targetDate.getTime() / (1000 * 60 * 60 * 24));
+      const lunarDay = ((dayNumber + 7) % 30);
+      const isShukla = lunarDay < 15;
+      const tithiIdx = lunarDay % 15;
+      const pakshaStr = isShukla ? (currentLang === 'en' ? 'Shukla Paksha' : 'शुक्ल पक्ष') : (currentLang === 'en' ? 'Krishna Paksha' : 'कृष्ण पक्ष');
+      document.getElementById('resTithi').innerText = `${tithiNames[tithiIdx]} (${pakshaStr})`;
+
+      // 2. Disha Shool
+      const dShool = dishaShoolList[dayOfWeek];
+      document.getElementById('resDisha').innerText = dShool.dirEn;
+
+      // 3. Abhijit Muhurat
       const daySpan = sunsetMin - sunriseMin;
       const oneMuhurat = daySpan / 15;
       const abhijitStart = sunriseMin + (oneMuhurat * 7);
       const abhijitEnd = abhijitStart + oneMuhurat;
       document.getElementById('resAbhijit').innerText = `${formatTime(abhijitStart)} - ${formatTime(abhijitEnd)}`;
 
-      // Rahu Kaal and Yamaganda
+      // 4. Rahu Kaal
       const daySegment = daySpan / 8;
       const rahuSegmentIdx = rahuKaalParts[dayOfWeek][0] - 1;
       const rahuStart = sunriseMin + (daySegment * rahuSegmentIdx);
       const rahuEnd = rahuStart + daySegment;
       document.getElementById('resRahuKaal').innerText = `${formatTime(rahuStart)} - ${formatTime(rahuEnd)}`;
 
-      const yamaOrder = [4, 3, 2, 1, 0, 6, 5]; // Sunday to Saturday indices
-      const yamaStart = sunriseMin + (daySegment * yamaOrder[dayOfWeek]);
-      const yamaEnd = yamaStart + daySegment;
-      document.getElementById('resYamaganda').innerText = `${formatTime(yamaStart)} - ${formatTime(yamaEnd)}`;
+      // Current system minutes for live highlighter
+      const now = new Date();
+      const currentNowMin = now.getHours() * 60 + now.getMinutes();
+      const isToday = now.toISOString().split('T')[0] === dateVal;
 
-      // Day Choghadiya (8 segments from sunrise to sunset)
+      let activeFound = false;
+
+      // Day Choghadiya
       const dOrder = choghadiyaOrderDay[dayOfWeek];
       const dBody = document.getElementById('dayChoghBody');
       dBody.innerHTML = '';
@@ -717,16 +813,23 @@
         const tEnd = tStart + daySegment;
         const name = dOrder[i];
         const meta = choghadiyaMeta[name];
+        const isActive = isToday && (currentNowMin >= tStart && currentNowMin < tEnd);
+
+        if (isActive) {
+          activeFound = true;
+          setActiveBanner(name, meta);
+        }
+
         dBody.innerHTML += `
-          <tr>
-            <td>${formatTime(tStart)} - ${formatTime(tEnd)}</td>
+          <tr class="${isActive ? 'active-chogh-row' : ''}">
+            <td>${formatTime(tStart)} - ${formatTime(tEnd)} ${isActive ? '⚡' : ''}</td>
             <td><strong>${name}</strong></td>
             <td><span class="chogh-tag ${meta.tag}">${currentLang === 'en' ? meta.en : meta.hi}</span></td>
           </tr>
         `;
       }
 
-      // Night Choghadiya (8 segments from sunset to next sunrise)
+      // Night Choghadiya
       const nightSpan = (1440 - sunsetMin) + sunriseMin;
       const nightSegment = nightSpan / 8;
       const nOrder = choghadiyaOrderNight[dayOfWeek];
@@ -737,14 +840,34 @@
         const tEnd = tStart + nightSegment;
         const name = nOrder[i];
         const meta = choghadiyaMeta[name];
-        nBody.innerHTML += `
-          <tr>
-            <td>${formatTime(tStart)} - ${formatTime(tEnd)}</td>
+        const isNightActive = isToday && (
+          (currentNowMin >= sunsetMin && currentNowMin >= tStart && currentNowMin < tEnd) ||
+          (currentNowMin < sunriseMin && ((currentNowMin + 1440) >= tStart && (currentNowMin + 1440) < tEnd))
+        );
+
+        if (isNightActive && !activeFound) {
+          activeFound = true;
+          setActiveBanner(name, meta);
+        }
+
+        dBody.innerHTML += `
+          <tr class="${isNightActive ? 'active-chogh-row' : ''}">
+            <td>${formatTime(tStart)} - ${formatTime(tEnd)} ${isNightActive ? '⚡' : ''}</td>
             <td><strong>${name}</strong></td>
             <td><span class="chogh-tag ${meta.tag}">${currentLang === 'en' ? meta.en : meta.hi}</span></td>
           </tr>
         `;
       }
+
+      if (!activeFound) {
+        document.getElementById('activeChoghName').innerText = dOrder[0];
+        document.getElementById('activeChoghDesc').innerText = choghadiyaMeta[dOrder[0]].desc;
+      }
+    }
+
+    function setActiveBanner(name, meta) {
+      document.getElementById('activeChoghName').innerText = name;
+      document.getElementById('activeChoghDesc').innerText = meta.desc;
     }
 
     function calculateMilan() {
@@ -753,9 +876,8 @@
       const bN = parseInt(document.getElementById('selBoyNak').value);
       const gN = parseInt(document.getElementById('selGirlNak').value);
 
-      // Authentic Ashtakoot mathematical approximation:
       // 1. Varna (1 Point)
-      const varnaMap = [0, 4, 3, 2, 1, 4, 3, 2, 1, 4, 3, 2, 1]; // 4: Brahmin, 3: Kshatriya, 2: Vaishya, 1: Shudra
+      const varnaMap = [0, 4, 3, 2, 1, 4, 3, 2, 1, 4, 3, 2, 1];
       const bV = varnaMap[bR];
       const gV = varnaMap[gR];
       const varnaScore = (bV >= gV) ? 1 : 0;
@@ -775,12 +897,12 @@
       // 5. Graha Maitri (5 Points)
       const rashiDiff = (gR - bR + 12) % 12;
       let maitriScore = 5;
-      if (rashiDiff === 6 || rashiDiff === 8) maitriScore = 0; // Shadashtak
+      if (rashiDiff === 6 || rashiDiff === 8) maitriScore = 0;
       else if (rashiDiff === 2 || rashiDiff === 12) maitriScore = 1;
       else if (rashiDiff === 3 || rashiDiff === 11) maitriScore = 3;
 
       // 6. Gana (6 Points)
-      const ganaB = bN % 3; // 0 Deva, 1 Manushya, 2 Rakshasa
+      const ganaB = bN % 3;
       const ganaG = gN % 3;
       let ganaScore = 6;
       if (ganaB === ganaG) ganaScore = 6;
@@ -789,14 +911,17 @@
 
       // 7. Bhakoot (7 Points)
       let bhakootScore = 7;
+      let hasBhakootDosha = false;
       if (rashiDiff === 6 || rashiDiff === 8 || rashiDiff === 2 || rashiDiff === 12 || rashiDiff === 5 || rashiDiff === 9) {
         bhakootScore = 0;
+        hasBhakootDosha = true;
       }
 
       // 8. Nadi (8 Points)
-      const nadiB = bN % 3; // Adi, Madhya, Antya
+      const nadiB = bN % 3;
       const nadiG = gN % 3;
-      const nadiScore = (nadiB !== nadiG) ? 8 : 0;
+      const hasNadiDosha = (nadiB === nadiG);
+      const nadiScore = hasNadiDosha ? 0 : 8;
 
       const total = varnaScore + vashyaScore + taraScore + yoniScore + maitriScore + ganaScore + bhakootScore + nadiScore;
 
@@ -811,8 +936,24 @@
 
       document.getElementById('resGunaScore').innerText = `${total} / 36`;
 
+      // Dosha Alert Box logic
+      const doshaBox = document.getElementById('doshaAlertBox');
+      if (hasNadiDosha || hasBhakootDosha) {
+        doshaBox.style.display = 'block';
+        doshaBox.className = 'dosha-box dosha-danger';
+        let alertMsg = '⚠️ <strong>Dosha Found:</strong> ';
+        if (hasNadiDosha && hasBhakootDosha) alertMsg += 'Nadi Dosha (नाड़ी दोष) & Bhakoot Dosha (भकूट दोष) present. Remedial consultation recommended.';
+        else if (hasNadiDosha) alertMsg += 'Nadi Dosha (नाड़ी दोष) present (Both have identical Nadi). Check cancellation factors.';
+        else alertMsg += 'Bhakoot Dosha (भकूट दोष - 6/8 or 2/12 rashi relationship).';
+        doshaBox.innerHTML = alertMsg;
+      } else {
+        doshaBox.style.display = 'block';
+        doshaBox.className = 'dosha-box dosha-safe';
+        doshaBox.innerHTML = '✅ <strong>Dosha Free:</strong> Both Nadi and Bhakoot match favorably with zero major doshas.';
+      }
+
       const badge = document.getElementById('resGunaVerdict');
-      if (total >= 25) {
+      if (total >= 25 && !hasNadiDosha) {
         badge.className = 'score-badge score-good';
         badge.innerText = currentLang === 'en' ? 'Excellent Match (उत्तम गुण मिलान)' : 'अति उत्तम मिलान (Excellent Match)';
       } else if (total >= 18) {
@@ -830,53 +971,51 @@
       if (currentLang === 'hi') {
         document.getElementById('btnLangText').innerText = 'Switch to English';
         document.getElementById('lblZeroAdBadge').innerText = '100% सुरक्षित (प्राइवेट)';
-        document.getElementById('txtTitle').innerText = 'दैनिक चौघड़िया, शुभ मुहूर्त एवं कुण्डली मिलान';
-        document.getElementById('txtSubtitle').innerText = 'सटीक पंचांग, राहुकाल, अभिजित मुहूर्त, दिन व रात का चौघड़िया और 36 गुण अष्टकूट मिलान सीधे आपके ब्राउज़र में।';
+        document.getElementById('txtTitle').innerText = 'दैनिक चौघड़िया, शुभ मुहूर्त, तिथि एवं कुण्डली मिलान';
+        document.getElementById('txtSubtitle').innerText = 'सटीक पंचांग, राहुकाल, दिशा शूल, तिथि, दिन व रात का चौघड़िया और 36 गुण अष्टकूट मिलान थेट तुमच्या ब्राउझरमध्ये.';
         document.getElementById('tabBtnPanchang').innerText = '📅 शुभ मुहूर्त व चौघड़िया';
         document.getElementById('tabBtnMilan').innerText = '💍 कुण्डली गुण मिलान (36 अंक)';
-        document.getElementById('txtPanchangHead').innerText = 'तारीख व शहर चुनें (Panchang Settings)';
-        document.getElementById('txtPanchangSub').innerText = 'सभी मुहूर्त सूर्योदय और सूर्यास्त के समय से सटीक सिंक होते हैं';
-        document.getElementById('lblPanchangDate').innerText = 'तारीख चुनें (Select Date)';
+        document.getElementById('lblPanchangDate').innerText = 'तारीख निवडा (Date)';
         document.getElementById('lblCity').innerText = 'शहर / संदर्भ क्षेत्र (City)';
+        document.getElementById('lblTithi').innerText = 'दैनिक तिथि (Tithi)';
         document.getElementById('lblAbhijit').innerText = 'अभिजित मुहूर्त (श्रेष्ठ)';
         document.getElementById('lblRahu').innerText = 'राहुकाल (अशुभ समय)';
-        document.getElementById('lblYamaganda').innerText = 'यमगंड काल (Yamaganda)';
+        document.getElementById('lblDisha').innerText = 'दिशा शूल (वर्ज्य दिशा)';
         document.getElementById('lblSunrise').innerText = 'सूर्योदय / सूर्यास्त';
-        document.getElementById('txtDayChoghHead').innerText = '☀️️ दिन का चौघड़िया (Day Choghadiya)';
+        document.getElementById('txtDayChoghHead').innerText = '☀ दिन का चौघड़िया (Day Choghadiya)';
         document.getElementById('txtNightChoghHead').innerText = '🌙 रात का चौघड़िया (Night Choghadiya)';
-        document.getElementById('txtMilanHead').innerText = 'अष्टकूट 36-गुण कुण्डली मिलान';
-        document.getElementById('txtMilanSub').innerText = 'वर और कन्या की जन्म राशि और नक्षत्र चुनें';
+        document.getElementById('lblActiveTitle').innerText = 'सध्याचा वेळ (Right Now):';
+        document.getElementById('txtMilanHead').innerText = 'अष्टकूट 36-गुण कुण्डली मिलान व दोष रिपोर्ट';
+        document.getElementById('txtMilanSub').innerText = 'वर आणि वधूची जन्म रास आणि नक्षत्र निवडा';
         document.getElementById('lblBoyRashi').innerText = 'वर की राशि (Groom Rashi)';
         document.getElementById('lblBoyNak').innerText = 'वर का नक्षत्र (Groom Nakshatra)';
         document.getElementById('lblGirlRashi').innerText = 'कन्या की राशि (Bride Rashi)';
         document.getElementById('lblGirlNak').innerText = 'कन्या का नक्षत्र (Bride Nakshatra)';
-        document.getElementById('lblTotalGuna').innerText = 'कुल मिले हुए गुण';
-        document.getElementById('txtZeroStorage').innerText = '100% सुरक्षित: आपकी कोई भी जन्म तिथि, कुण्डली या स्थान किसी बाहरी सर्वर पर नहीं भेजा जाता।';
+        document.getElementById('lblTotalGuna').innerText = 'एकूण मिळालेले गुण (Total Score)';
       } else {
-        document.getElementById('btnLangText').innerText = 'हिंदी में बदलें (Hindi)';
+        document.getElementById('btnLangText').innerText = 'हिंदी / मराठीत पहा';
         document.getElementById('lblZeroAdBadge').innerText = '100% Private';
         document.getElementById('txtTitle').innerText = 'Daily Choghadiya, Shubh Muhurat & Kundali Milan';
-        document.getElementById('txtSubtitle').innerText = 'Accurate Hindu Panchang, Rahu Kaal, Abhijit Muhurat, Day & Night Choghadiya and 36 Guna Ashtakoot matching calculated directly in your browser.';
+        document.getElementById('txtSubtitle').innerText = 'Accurate Hindu Panchang, Rahu Kaal, Tithi, Disha Shool, Day & Night Choghadiya and 36 Guna Ashtakoot matching calculated directly in your browser.';
         document.getElementById('tabBtnPanchang').innerText = '📅 Shubh Muhurat & Choghadiya';
         document.getElementById('tabBtnMilan').innerText = '💍 Kundali Guna Milan (36 Points)';
-        document.getElementById('txtPanchangHead').innerText = 'Select Date & Location Settings';
-        document.getElementById('txtPanchangSub').innerText = 'Times automatically synchronize with sunrise and sunset';
         document.getElementById('lblPanchangDate').innerText = 'Date (तारीख)';
         document.getElementById('lblCity').innerText = 'City / Reference Zone (क्षेत्र)';
+        document.getElementById('lblTithi').innerText = 'Dainik Tithi (तिथि)';
         document.getElementById('lblAbhijit').innerText = 'Abhijit Muhurat';
         document.getElementById('lblRahu').innerText = 'Rahu Kaal (अशुभ)';
-        document.getElementById('lblYamaganda').innerText = 'Yamaganda';
+        document.getElementById('lblDisha').innerText = 'Disha Shool (दिशा शूल)';
         document.getElementById('lblSunrise').innerText = 'Sunrise / Sunset';
         document.getElementById('txtDayChoghHead').innerText = '☀️ Day Choghadiya (दिन का चौघड़िया)';
         document.getElementById('txtNightChoghHead').innerText = '🌙 Night Choghadiya (रात का चौघड़िया)';
-        document.getElementById('txtMilanHead').innerText = 'Ashtakoot 36-Guna Kundali Matching';
-        document.getElementById('txtMilanSub').innerText = 'Select the Moon Signs (Rashi) and Birth Stars (Nakshatra) for the Groom and Bride';
+        document.getElementById('lblActiveTitle').innerText = 'Right Now (सध्याचा चौघड़िया):';
+        document.getElementById('txtMilanHead').innerText = 'Ashtakoot 36-Guna Kundali Matching & Dosha Report';
+        document.getElementById('txtMilanSub').innerText = 'Select the Moon Signs (Rashi) and Birth Stars (Nakshatra) for Groom and Bride';
         document.getElementById('lblBoyRashi').innerText = "Groom's Rashi (वर की राशि)";
         document.getElementById('lblBoyNak').innerText = "Groom's Nakshatra (वर का नक्षत्र)";
         document.getElementById('lblGirlRashi').innerText = "Bride's Rashi (कन्या की राशि)";
         document.getElementById('lblGirlNak').innerText = "Bride's Nakshatra (कन्या का नक्षत्र)";
         document.getElementById('lblTotalGuna').innerText = 'Total Matching Points';
-        document.getElementById('txtZeroStorage').innerText = '100% Private & In-Browser: No birth dates, horoscopes, or locations are ever sent to an external server.';
       }
 
       populateDropdowns();
@@ -886,19 +1025,21 @@
 
     function sharePanchangWhatsApp() {
       const d = document.getElementById('inputDate').value;
+      const tithi = document.getElementById('resTithi').innerText;
       const ab = document.getElementById('resAbhijit').innerText;
       const rk = document.getElementById('resRahuKaal').innerText;
-      const st = document.getElementById('resSunTimes').innerText;
+      const disha = document.getElementById('resDisha').innerText;
 
-      const text = encodeURIComponent(`🕉️ दैनिक पंचांग व शुभ मुहूर्त (${d}):\nसूर्योदय/सूर्यास्त: ${st}\n✅ अभिजित मुहूर्त (श्रेष्ठ): ${ab}\n❌ राहुकाल (अशुभ समय): ${rk}\n\nआज का चौघड़िया चेक करें: ` + window.location.href);
+      const text = encodeURIComponent(`🕉️ दैनिक पंचांग व शुभ मुहूर्त (${d}):\nतिथि: ${tithi}\n✅ अभिजित मुहूर्त: ${ab}\n❌ राहुकाल: ${rk}\n🧭 दिशा शूल: ${disha}\n\nआजचा चौघड़िया चेक करा: ` + window.location.href);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
     function shareMilanWhatsApp() {
       const score = document.getElementById('resGunaScore').innerText;
       const verdict = document.getElementById('resGunaVerdict').innerText;
+      const dosha = document.getElementById('doshaAlertBox').innerText;
 
-      const text = encodeURIComponent(`💍 कुण्डली गुण मिलान रिपोर्ट:\nकुल गुण: ${score}\nपरिणाम: ${verdict}\n\nमुफ्त कुण्डली मिलान चेक करें: ` + window.location.href);
+      const text = encodeURIComponent(`💍 कुण्डली गुण मिलान रिपोर्ट:\nएकूण गुण: ${score}\nपरिणाम: ${verdict}\nदोष स्थिति: ${dosha}\n\nमोफत कुण्डली मिलान तपासा: ` + window.location.href);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
   </script>
